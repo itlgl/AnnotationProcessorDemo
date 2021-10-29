@@ -46,11 +46,6 @@ public class GetterProcessor extends AbstractProcessor {
     }
 
     @Override
-    public SourceVersion getSupportedSourceVersion() {
-        return SourceVersion.latestSupported();
-    }
-
-    @Override
     public Set<String> getSupportedAnnotationTypes() {
         return Collections.singleton(Getter.class.getCanonicalName());
     }

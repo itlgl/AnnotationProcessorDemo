@@ -26,11 +26,6 @@ import demo.lib_annotation.HelloWorldGen2;
 public class HelloWorldProcessor2 extends AbstractProcessor {
 
     @Override
-    public SourceVersion getSupportedSourceVersion() {
-        return SourceVersion.latestSupported();
-    }
-
-    @Override
     public Set<String> getSupportedAnnotationTypes() {
         return Collections.singleton(HelloWorldGen2.class.getCanonicalName());
     }

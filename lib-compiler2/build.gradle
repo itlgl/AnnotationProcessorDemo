@@ -1,0 +1,18 @@
+plugins {
+    id 'java-library'
+}
+
+dependencies {
+    implementation project(':lib-annotation')
+    implementation 'com.google.auto:auto-common:0.10'
+    api 'com.squareup:javapoet:1.13.0'
+
+    compileOnly 'com.google.auto.service:auto-service:1.0-rc7'
+    annotationProcessor 'com.google.auto.service:auto-service:1.0-rc7'
+    compileOnly files(org.gradle.internal.jvm.Jvm.current().getToolsJar())
+}
+
+java {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+}

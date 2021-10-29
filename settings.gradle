@@ -1,0 +1,6 @@
+rootProject.name = "AnnotationProcessorDemo"
+include ':app'
+include ':lib-annotation'
+include ':lib-compiler1'
+include ':lib-compiler2'
+include ':lib-compiler3'

@@ -63,17 +63,25 @@ public class GetterProcessor extends AbstractProcessor {
             tree.accept(new TreeTranslator() {
                  @Override
                  public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
-                     List<JCTree> methods = List.nil();
+                     // List.nil不支持remove，用defsTem把defs里面的加进去
+                     List<JCTree> defsTem = List.nil();
                      for (JCTree jcTree : jcClassDecl.defs) {
                          if(jcTree.getKind().equals(Tree.Kind.VARIABLE)) {
                              JCTree.JCVariableDecl jcVariableDecl = (JCTree.JCVariableDecl) jcTree;
+                             // 删除map字段
+                             if(jcVariableDecl.name.toString().equals("map")) {
+                                 continue;
+                             }
 
-                             // insert getter method
+                             // 增加getter方法
                              JCTree.JCMethodDecl jcMethodDecl = makeGetterMethodDecl(jcVariableDecl);
-                             methods = methods.append(jcMethodDecl);
+                             defsTem = defsTem.append(jcMethodDecl);
+                             defsTem = defsTem.append(jcTree);
+                         } else {
+                             defsTem = defsTem.append(jcTree);
                          }
                      }
-                     jcClassDecl.defs = jcClassDecl.defs.appendList(methods);
+                     jcClassDecl.defs = defsTem;
 
                      super.visitClassDef(jcClassDecl);
                  }

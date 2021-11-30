@@ -26,8 +26,10 @@ import demo.lib_annotation.HelloWorldGen;
 
 @AutoService(Processor.class)
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
+//@SupportedAnnotationTypes("demo.lib_annotation.HelloWorldGen")
 public class HelloWorldProcessor extends AbstractProcessor {
 
+    // 可用@SupportedAnnotationTypes("demo.lib_annotation.HelloWorldGen")替代
     @Override
     public Set<String> getSupportedAnnotationTypes() {
         return Collections.singleton(HelloWorldGen.class.getCanonicalName());
@@ -39,7 +41,6 @@ public class HelloWorldProcessor extends AbstractProcessor {
         System.out.println("HelloWorldProcessor -> this=" + this);
         System.out.println("HelloWorldProcessor -> process elements.size()=" + elements.size());
         System.out.println("HelloWorldProcessor -> roundEnv.processingOver()=" + roundEnv.processingOver());
-        if(true) throw new RuntimeException("xxxxxxxx");
         if(elements.size() > 0) {
             // HelloWorld.java
             try {

@@ -13,8 +13,8 @@ import demo.lib_annotation.Getter;
  */
 @Getter
 public class User {
-    private String name = "segway";
-    private int id = 5;
-    private List<String> phoneNums = Arrays.asList("10010", "10086");
-    private Map<String, String> map = new HashMap<>();
+    public String name = "segway";
+    public int id = 5;
+    public List<String> phoneNums = Arrays.asList("10010", "10086");
+    public Map<String, String> map = new HashMap<>();
 }

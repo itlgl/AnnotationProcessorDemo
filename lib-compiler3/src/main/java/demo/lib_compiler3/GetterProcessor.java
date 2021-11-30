@@ -13,6 +13,7 @@ import com.sun.tools.javac.util.List;
 import com.sun.tools.javac.util.ListBuffer;
 import com.sun.tools.javac.util.Names;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Set;
 
@@ -64,7 +65,7 @@ public class GetterProcessor extends AbstractProcessor {
                  @Override
                  public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
                      // List.nil不支持remove，用defsTem把defs里面的加进去
-                     List<JCTree> defsTem = List.nil();
+                     ArrayList<JCTree> defsTem = new ArrayList<>();
                      for (JCTree jcTree : jcClassDecl.defs) {
                          if(jcTree.getKind().equals(Tree.Kind.VARIABLE)) {
                              JCTree.JCVariableDecl jcVariableDecl = (JCTree.JCVariableDecl) jcTree;
@@ -75,13 +76,13 @@ public class GetterProcessor extends AbstractProcessor {
 
                              // 增加getter方法
                              JCTree.JCMethodDecl jcMethodDecl = makeGetterMethodDecl(jcVariableDecl);
-                             defsTem = defsTem.append(jcMethodDecl);
-                             defsTem = defsTem.append(jcTree);
+                             defsTem.add(jcMethodDecl);
+                             defsTem.add(jcTree);
                          } else {
-                             defsTem = defsTem.append(jcTree);
+                             defsTem.add(jcTree);
                          }
                      }
-                     jcClassDecl.defs = defsTem;
+                     jcClassDecl.defs = List.from(defsTem);
 
                      super.visitClassDef(jcClassDecl);
                  }

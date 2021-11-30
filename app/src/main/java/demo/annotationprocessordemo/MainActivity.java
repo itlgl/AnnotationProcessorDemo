@@ -1,13 +1,10 @@
 package demo.annotationprocessordemo;
 
+import android.os.Bundle;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.LinearLayoutCompat;
-
-import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.CompoundButton;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,6 +27,9 @@ public class MainActivity extends AppCompatActivity {
             User user = new User();
             String name = user.getName();
             System.out.println("name=" + name);
+
+            // 删除map后编译找不到map属性
+            // Map<String, String> map = user.map;
         });
         layoutContainer.addView(button);
     }

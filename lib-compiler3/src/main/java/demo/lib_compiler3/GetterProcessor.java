@@ -36,7 +36,7 @@ public class GetterProcessor extends AbstractProcessor {
     private Names mNames;
 
     @Override
-    public synchronized void init(ProcessingEnvironment processingEnv) {
+    public void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
 
         Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
@@ -63,15 +63,17 @@ public class GetterProcessor extends AbstractProcessor {
             tree.accept(new TreeTranslator() {
                  @Override
                  public void visitClassDef(JCTree.JCClassDecl jcClassDecl) {
+                     List<JCTree> methods = List.nil();
                      for (JCTree jcTree : jcClassDecl.defs) {
                          if(jcTree.getKind().equals(Tree.Kind.VARIABLE)) {
                              JCTree.JCVariableDecl jcVariableDecl = (JCTree.JCVariableDecl) jcTree;
 
                              // insert getter method
                              JCTree.JCMethodDecl jcMethodDecl = makeGetterMethodDecl(jcVariableDecl);
-                             jcClassDecl.defs = jcClassDecl.defs.append(jcMethodDecl);
+                             methods = methods.append(jcMethodDecl);
                          }
                      }
+                     jcClassDecl.defs = jcClassDecl.defs.appendList(methods);
 
                      super.visitClassDef(jcClassDecl);
                  }

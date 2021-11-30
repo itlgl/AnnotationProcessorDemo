@@ -5,7 +5,6 @@ import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.Set;
@@ -33,7 +32,9 @@ public class HelloWorldProcessor2 extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(HelloWorldGen2.class);
+        System.out.println("HelloWorldProcessor2 -> this=" + this);
         System.out.println("HelloWorldProcessor2 -> process elements.size()=" + elements.size());
+        System.out.println("HelloWorldProcessor2 -> roundEnv.processingOver()=" + roundEnv.processingOver());
         if(elements.size() > 0) {
             MethodSpec main = MethodSpec.methodBuilder("main")
                     .addModifiers(Modifier.PUBLIC, Modifier.STATIC)

@@ -1,8 +1,12 @@
-package demo.lib_compiler2;
+package demo.lib_compiler;
 
 import com.google.auto.service.AutoService;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Writer;
 import java.util.Collections;
 import java.util.Set;
@@ -32,8 +36,12 @@ public class HelloWorldProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(HelloWorldGen.class);
+        System.out.println("HelloWorldProcessor -> this=" + this);
         System.out.println("HelloWorldProcessor -> process elements.size()=" + elements.size());
+        System.out.println("HelloWorldProcessor -> roundEnv.processingOver()=" + roundEnv.processingOver());
+        if(true) throw new RuntimeException("xxxxxxxx");
         if(elements.size() > 0) {
+            // HelloWorld.java
             try {
                 JavaFileObject helloWorld = processingEnv.getFiler()
                         .createSourceFile("demo.HelloWorld");
@@ -44,7 +52,7 @@ public class HelloWorldProcessor extends AbstractProcessor {
                         "\n" +
                         "public final class HelloWorld {\n" +
                         "  public static void main(String[] args) {\n" +
-                        "    System.out.println(\"Hello, JavaPoet!\");\n" +
+                        "    System.out.println(\"Hello jsr269!\");\n" +
                         "  }\n" +
                         "}");
                 writer.flush();
@@ -53,6 +61,7 @@ public class HelloWorldProcessor extends AbstractProcessor {
                 System.out.println("HelloWorldProcessor -> gen file error, " + e);
             }
 
+            // META-INF/services/test
             try {
                 String resourceFile = "META-INF/services/test";
                 FileObject fileObject = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
@@ -64,6 +73,22 @@ public class HelloWorldProcessor extends AbstractProcessor {
                 writer.close();
             } catch (IOException e) {
                 System.out.println("HelloWorldProcessor -> create resource error, " + e);
+            }
+
+            File currDir = new File("");
+            System.out.println("curr dir=" + currDir.getAbsolutePath());
+
+            // read AndroidManifest.xml
+            File manifestFile = new File("./app/src/main/AndroidManifest.xml");
+            System.out.println("AndroidManifest absolute path exist=" + manifestFile.exists());
+
+            try {
+                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(manifestFile), "utf-8"));
+                String s = br.readLine();
+                System.out.println(s);
+                br.close();
+            } catch (Exception e) {
+                e.printStackTrace(System.out);
             }
         }
         return true;

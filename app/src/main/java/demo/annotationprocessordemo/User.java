@@ -7,10 +7,6 @@ import java.util.Map;
 
 import demo.lib_annotation.Getter;
 
-/**
- * @author guanliang
- * @since 2021/10/25
- */
 @Getter
 public class User {
     public String name = "segway";

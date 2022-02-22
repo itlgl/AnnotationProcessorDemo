@@ -54,6 +54,9 @@ public class GetterProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Getter.class);
+        System.out.println("GetterProcessor -> this=" + this);
+        System.out.println("GetterProcessor -> process elements.size()=" + elements.size());
+        System.out.println("GetterProcessor -> roundEnv.processingOver()=" + roundEnv.processingOver());
         for (Element element : elements) {
             if(!element.getKind().isClass()) {
                 continue;

@@ -43,23 +43,27 @@ public class HelloWorldProcessorCopy extends AbstractProcessor {
         System.out.println("HelloWorldProcessorCopy -> roundEnv.processingOver()=" + roundEnv.processingOver());
         if(elements.size() > 0) {
             // HelloWorld.java
-            try {
-                JavaFileObject helloWorld = processingEnv.getFiler()
-                        .createSourceFile("demo.HelloWorldCopy");
+            for (Element element : elements) {
+                try {
+                    String className = "HelloWorldCopy" + element.getSimpleName().toString();
+                    JavaFileObject helloWorld = processingEnv.getFiler()
+                            .createSourceFile("demo." + className);
 
-                Writer writer = helloWorld.openWriter();
+                    Writer writer = helloWorld.openWriter();
 
-                writer.write("package demo;\n" +
-                        "\n" +
-                        "public final class HelloWorldCopy {\n" +
-                        "  public static void main(String[] args) {\n" +
-                        "    System.out.println(\"Hello jsr269!\");\n" +
-                        "  }\n" +
-                        "}");
-                writer.flush();
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("HelloWorldProcessorCopy -> gen file error, " + e);
+                    writer.write("package demo;\n" +
+                            "\n" +
+                            "public final class " + className + " {\n" +
+                            "  public static void main(String[] args) {\n" +
+                            "    System.out.println(\"Hello jsr269!\");\n" +
+                            "  }\n" +
+                            "}");
+                    writer.flush();
+                    writer.close();
+                    System.out.println("HelloWorldProcessorCopy -> gen file:" + className);
+                } catch (IOException e) {
+                    System.out.println("HelloWorldProcessorCopy -> gen file error, " + e);
+                }
             }
         }
         return false;

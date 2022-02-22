@@ -36,24 +36,27 @@ public class HelloWorldProcessor2 extends AbstractProcessor {
         System.out.println("HelloWorldProcessor2 -> process elements.size()=" + elements.size());
         System.out.println("HelloWorldProcessor2 -> roundEnv.processingOver()=" + roundEnv.processingOver());
         if(elements.size() > 0) {
-            MethodSpec main = MethodSpec.methodBuilder("main")
-                    .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-                    .returns(void.class)
-                    .addParameter(String[].class, "args")
-                    .addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!")
-                    .build();
+            for (Element element : elements) {
+                String className = "HelloWorld2" + element.getSimpleName().toString();
+                MethodSpec main = MethodSpec.methodBuilder("main")
+                        .addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+                        .returns(void.class)
+                        .addParameter(String[].class, "args")
+                        .addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!")
+                        .build();
 
-            TypeSpec helloWorld = TypeSpec.classBuilder("HelloWorld2")
-                    .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                    .addMethod(main)
-                    .build();
+                TypeSpec helloWorld = TypeSpec.classBuilder(className)
+                        .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
+                        .addMethod(main)
+                        .build();
 
-            JavaFile javaFile = JavaFile.builder("demo", helloWorld)
-                    .build();
-            try {
-                javaFile.writeTo(processingEnv.getFiler());
-            } catch (IOException e) {
-                e.printStackTrace();
+                JavaFile javaFile = JavaFile.builder("demo", helloWorld)
+                        .build();
+                try {
+                    javaFile.writeTo(processingEnv.getFiler());
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
         return true;

@@ -43,23 +43,27 @@ public class HelloWorldProcessor extends AbstractProcessor {
         System.out.println("HelloWorldProcessor -> roundEnv.processingOver()=" + roundEnv.processingOver());
         if(elements.size() > 0) {
             // HelloWorld.java
-            try {
-                JavaFileObject helloWorld = processingEnv.getFiler()
-                        .createSourceFile("demo.HelloWorld");
+            for (Element element : elements) {
+                try {
+                    String className = "HelloWorld" + element.getSimpleName().toString();
+                    JavaFileObject helloWorld = processingEnv.getFiler()
+                            .createSourceFile("demo." + className);
 
-                Writer writer = helloWorld.openWriter();
+                    Writer writer = helloWorld.openWriter();
 
-                writer.write("package demo;\n" +
-                        "\n" +
-                        "public final class HelloWorld {\n" +
-                        "  public static void main(String[] args) {\n" +
-                        "    System.out.println(\"Hello jsr269!\");\n" +
-                        "  }\n" +
-                        "}");
-                writer.flush();
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("HelloWorldProcessor -> gen file error, " + e);
+                    writer.write("package demo;\n" +
+                            "\n" +
+                            "public final class " + className + " {\n" +
+                            "  public static void main(String[] args) {\n" +
+                            "    System.out.println(\"Hello jsr269!\");\n" +
+                            "  }\n" +
+                            "}");
+                    writer.flush();
+                    writer.close();
+                    System.out.println("HelloWorldProcessor -> gen file:" + className);
+                } catch (IOException e) {
+                    System.out.println("HelloWorldProcessor -> gen file error, " + e);
+                }
             }
 
             // META-INF/services/test

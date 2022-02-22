@@ -5,10 +5,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * @author guanliang
- * @since 2021/10/25
- */
 @Retention(RetentionPolicy.SOURCE)
 @Target(value = ElementType.TYPE)
 public @interface Getter {

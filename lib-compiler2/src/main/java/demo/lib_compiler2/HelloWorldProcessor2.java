@@ -43,6 +43,7 @@ public class HelloWorldProcessor2 extends AbstractProcessor {
                         .returns(void.class)
                         .addParameter(String[].class, "args")
                         .addStatement("$T.out.println($S)", System.class, "Hello, JavaPoet!")
+                        .addStatement("int result = $L", 999)
                         .build();
 
                 TypeSpec helloWorld = TypeSpec.classBuilder(className)

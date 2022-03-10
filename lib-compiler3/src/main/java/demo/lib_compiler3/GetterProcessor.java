@@ -40,6 +40,13 @@ public class GetterProcessor extends AbstractProcessor {
     public void init(ProcessingEnvironment processingEnv) {
         super.init(processingEnv);
 
+        /**
+         * 添加incremental.annotation.processors文件后，编译报错
+         * * What went wrong:
+         * Execution failed for task ':app:compileDebugJavaWithJavac'.
+         * > java.lang.ClassCastException: org.gradle.api.internal.tasks.compile.processing.IncrementalProcessingEnvironment
+         * cannot be cast to com.sun.tools.javac.processing.JavacProcessingEnvironment
+         */
         Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
         mJavacTrees = JavacTrees.instance(processingEnv);
         mTreeMaker = TreeMaker.instance(context);

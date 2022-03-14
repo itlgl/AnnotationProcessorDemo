@@ -28,7 +28,7 @@ public class RangeProcessor extends AbstractProcessor {
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
         Set<? extends Element> elements = roundEnv.getElementsAnnotatedWith(Range.class);
         for (Element element : elements) {
-            System.out.println("HelloProcessor -> " + element.toString());
+            System.out.println("RangeProcessor -> " + element.toString());
         }
         return true;
     }

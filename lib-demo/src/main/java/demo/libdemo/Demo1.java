@@ -1,7 +1,8 @@
-package demo.annotationprocessordemo;
+package demo.libdemo;
 
 import demo.lib_annotation.HelloWorldGen;
 
 @HelloWorldGen
-public class Demo3 {
+public class Demo1 {
+    int sss = 2;
 }

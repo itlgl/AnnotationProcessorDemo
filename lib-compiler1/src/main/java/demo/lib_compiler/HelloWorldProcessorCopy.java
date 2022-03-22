@@ -47,7 +47,7 @@ public class HelloWorldProcessorCopy extends AbstractProcessor {
                 try {
                     String className = "HelloWorldCopy" + element.getSimpleName().toString();
                     JavaFileObject helloWorld = processingEnv.getFiler()
-                            .createSourceFile("demo." + className);
+                            .createSourceFile("demo." + className, element);
 
                     Writer writer = helloWorld.openWriter();
 

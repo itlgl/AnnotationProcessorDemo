@@ -1,4 +1,4 @@
-package demo.annotationprocessordemo;
+package demo.libdemo;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -13,4 +13,5 @@ public class User {
     public int id = 5;
     public List<String> phoneNums = Arrays.asList("10010", "10086");
     public Map<String, String> map = new HashMap<>();
+    public int sss = 20;
 }

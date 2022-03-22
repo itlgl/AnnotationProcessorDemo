@@ -1,4 +1,4 @@
-package demo.annotationprocessordemo;
+package demo.libdemo;
 
 import demo.lib_annotation.HelloWorldGen2;
 

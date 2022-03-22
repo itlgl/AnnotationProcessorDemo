@@ -47,7 +47,7 @@ public class HelloWorldProcessor extends AbstractProcessor {
                 try {
                     String className = "HelloWorld" + element.getSimpleName().toString();
                     JavaFileObject helloWorld = processingEnv.getFiler()
-                            .createSourceFile("demo." + className);
+                            .createSourceFile("demo." + className, element);
 
                     Writer writer = helloWorld.openWriter();
 
@@ -64,36 +64,21 @@ public class HelloWorldProcessor extends AbstractProcessor {
                 } catch (IOException e) {
                     System.out.println("HelloWorldProcessor -> gen file error, " + e);
                 }
-            }
 
-            // META-INF/services/test
-            try {
-                String resourceFile = "META-INF/services/test";
-                FileObject fileObject = processingEnv.getFiler().createResource(StandardLocation.CLASS_OUTPUT, "", resourceFile);
-                Writer writer = fileObject.openWriter();
+                // META-INF/services/test
+                try {
+                    String resourceFile = "META-INF/services/test_" + element.getSimpleName().toString();
+                    FileObject fileObject = processingEnv.getFiler().createResource(
+                            StandardLocation.CLASS_OUTPUT, "", resourceFile, element);
+                    Writer writer = fileObject.openWriter();
 
-                writer.write("test string");
+                    writer.write("test string");
 
-                writer.flush();
-                writer.close();
-            } catch (IOException e) {
-                System.out.println("HelloWorldProcessor -> create resource error, " + e);
-            }
-
-            File currDir = new File("");
-            System.out.println("curr dir=" + currDir.getAbsolutePath());
-
-            // read AndroidManifest.xml
-            File manifestFile = new File("./app/src/main/AndroidManifest.xml");
-            System.out.println("AndroidManifest absolute path exist=" + manifestFile.exists());
-
-            try {
-                BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(manifestFile), "utf-8"));
-                String s = br.readLine();
-                System.out.println(s);
-                br.close();
-            } catch (Exception e) {
-                e.printStackTrace(System.out);
+                    writer.flush();
+                    writer.close();
+                } catch (IOException e) {
+                    System.out.println("HelloWorldProcessor -> create resource error, " + e);
+                }
             }
         }
         return false;

@@ -49,6 +49,7 @@ public class HelloWorldProcessor2 extends AbstractProcessor {
                 TypeSpec helloWorld = TypeSpec.classBuilder(className)
                         .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
                         .addMethod(main)
+                        .addOriginatingElement(element)
                         .build();
 
                 JavaFile javaFile = JavaFile.builder("demo", helloWorld)

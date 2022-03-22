@@ -22,11 +22,14 @@ public class MainActivity extends AppCompatActivity {
         button = new AppCompatButton(this);
         button.setText("test getName");
         button.setAllCaps(false);
+        int i = 10 + 10;
+        int h = 10 + 10;
+        int k = 10 + 10;
         button.setOnClickListener(v -> {
             // 避免ide报错：编写ide插件、反射
-            User user = new User();
+            /*User user = new User();
             String name = user.getName();
-            System.out.println("name=" + name);
+            System.out.println("name=" + name);*/
 
             // 删除map后编译找不到map属性
             // Map<String, String> map = user.map;

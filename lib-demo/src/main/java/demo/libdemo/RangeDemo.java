@@ -1,14 +1,16 @@
 package demo.libdemo;
 
+import java.util.List;
+
 import demo.lib_annotation.Range;
 
 @Range
-public class RangeDemo {
+public class RangeDemo<String> {
     @Range
-    public int number = 1;
+    public List<Integer> numberList;
 
     @Range
-    public void test(@Range int param) {
+    public <Integer> void test(@Range int param) {
 
     }
 }
